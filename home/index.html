@@ -41,7 +41,7 @@
         dragElement(document.getElementById("about"));
         setInterval(function() {
           document.getElementById("time").textContent = formatAMPM(new Date());
-        }, 60);
+        }, 1000);
 
         function formatAMPM(date) {
           var hours = date.getHours();
