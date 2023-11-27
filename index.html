@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Windows!</title>
+    <link rel="stylesheet" href="https://unpkg.com/98.css">
+</head>
+<body style="background-color: #008080;">
+    <div id="window" class="window" style="width: 425px; margin: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+        <div class="title-bar">
+          <div class="title-bar-text">Welcome to Windows!</div>
+          <div class="title-bar-controls">
+            <button aria-label="Help"></button>
+            <button aria-label="Close"></button>
+          </div>
+        </div>
+        <div class="window-body" style="display: grid; grid-template-columns: auto auto auto;">
+          <div><img src="key.png"></div>
+          <div><span>Type a username and password to log on to Windows.</span><br><br><br><label><u>U</u>ser name:&nbsp;&nbsp;&nbsp;</label><input id="unm" type="text" value="windows"/><br><br><label><u>P</u>assword:&nbsp;&nbsp;&nbsp;&nbsp;</label><input id="pw" type="password" value="windows"/></div>
+          <div><button id="ok" onclick="window.location.href='home.html'">OK</button><br><br><button onclick="window.location.href='home.html'">Cancel</button></div>
+        </div></div><br>
+
+        <script>
+            var input = document.getElementById("unm");
+            var input2 = document.getElementById("pw");
+            input.addEventListener("keypress", function(event) {
+              if (event.key === "Enter") {
+                event.preventDefault();
+                document.getElementById("ok").click();
+              }
+            });
+            input2.addEventListener("keypress", function(event) {
+              if (event.key === "Enter") {
+                event.preventDefault();
+                document.getElementById("ok").click();
+              }
+            });
+
+            dragElement(document.getElementById("window"));
+
+        function dragElement(elmnt) {
+        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        if (document.getElementById(elmnt.id + "header")) {
+            // if present, the header is where you move the DIV from:
+            document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+        } else {
+            // otherwise, move the DIV from anywhere inside the DIV:
+            elmnt.onmousedown = dragMouseDown;
+        }
+
+        function dragMouseDown(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // get the mouse cursor position at startup:
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            // call a function whenever the cursor moves:
+            document.onmousemove = elementDrag;
+        }
+
+        function elementDrag(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // calculate the new cursor position:
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            // set the element's new position:
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        }
+
+        function closeDragElement() {
+            // stop moving when mouse button is released:
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
+        }
+        </script>      
+</body>
+</html>

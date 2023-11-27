@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ved Rane</title>
+    <link rel="stylesheet" href="https://unpkg.com/98.css">
+</head>
+<body style="background-color: #008080; width: 100%; margin: 0px;">
+    <div style="margin: 10px; margin-left: 12px;"><img src="pc.png"><br><span style="font-family:'Pixelated MS Sans Serif'; color:#ffffff">My Computer</span></div><br>
+    <div style="margin: 5px; margin-left: 12px;"><img src="docs.png"><br><span style="font-family:'Pixelated MS Sans Serif'; color:#ffffff">My Documents</span></div><br>
+    <div style="margin: 5px;"><img src="ie.png" style="margin-left: 12px;"><br><span style="font-family:'Pixelated MS Sans Serif'; color:#ffffff">Internet Explorer</span></div><br>
+    <div style="margin: 5px;"><img src="netn.png" style="margin-left: 12px;"><br><span style="font-family:'Pixelated MS Sans Serif'; color:#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Network<br>Neighborhood</span></div><br>
+    <div style="margin: 5px; margin-left: 12px"><img src="rec.png"><br><span style="font-family:'Pixelated MS Sans Serif'; color:#ffffff">Recycle<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bin</span></div>
+    
+    <div id="about" class="window" style="width: 425px; margin: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+        <div class="title-bar">
+          <div class="title-bar-text">About Me</div>
+          <div class="title-bar-controls">
+            <button aria-label="Help"></button>
+            <button aria-label="Close"></button>
+          </div>
+        </div>
+        <div class="window-body">
+           <b style="font-size: 30px;">Welcome to Ved Rane's Homepage!</b><br>
+           <img src="win.png" width="200px"><br>
+           <p>Hi! My name is Ved Rane. I am a programmer who enjoys old software and operating systems.</p>
+           <p>Here are some things for you to check out:</p>
+           <ul>
+            <li>My GitHub: <a href="https://github.com/vedrane/">https://github.com/vedrane/</a></li>
+            <li>My itch.io: <a href="https://vedranegames.itch.io/">https://vedranegames.itch.io/</a></li>
+           </ul>
+        </div>
+    </div>
+    
+    <div style="background-color: #c3c3c3; overflow: hidden; position: fixed; bottom: 0; width: 100%; padding: 5px;"><input style="background: #ccc url('start.png') no-repeat top left;padding-left: 32px; height: 32px; font-weight: 700; font-size: 16px;" type="submit" value="&nbsp;Start"><button id="time" style="float: right; padding: 6px; font-size: 16px;"></button></div>
+
+    <!-- style="display: grid; grid-template-columns: auto auto;" -->
+
+    <audio src="boot.mp3" autoplay="autoplay"></audio>
+    <script>
+        dragElement(document.getElementById("about"));
+        setInterval(function() {
+          document.getElementById("time").textContent = formatAMPM(new Date());
+        }, 60);
+
+        function formatAMPM(date) {
+          var hours = date.getHours();
+          var minutes = date.getMinutes();
+          var ampm = hours >= 12 ? 'PM' : 'AM';
+          hours = hours % 12;
+          hours = hours ? hours : 12; // the hour '0' should be '12'
+          minutes = minutes < 10 ? '0'+minutes : minutes;
+          var strTime = hours + ':' + minutes + ' ' + ampm;
+          return strTime;
+        }
+
+        function dragElement(elmnt) {
+        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        if (document.getElementById(elmnt.id + "header")) {
+            // if present, the header is where you move the DIV from:
+            document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+        } else {
+            // otherwise, move the DIV from anywhere inside the DIV:
+            elmnt.onmousedown = dragMouseDown;
+        }
+
+        function dragMouseDown(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // get the mouse cursor position at startup:
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            // call a function whenever the cursor moves:
+            document.onmousemove = elementDrag;
+        }
+
+        function elementDrag(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // calculate the new cursor position:
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            // set the element's new position:
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        }
+
+        function closeDragElement() {
+            // stop moving when mouse button is released:
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
+        }
+    </script>
+
+</body>
+</html>
